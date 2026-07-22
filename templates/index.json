@@ -276,10 +276,21 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "three_hero_section": {
+      "type": "three-3d-hero",
+      "settings": {
+        "subheading": "INTERACTIVE 3D EXPERIENCE",
+        "heading": "NEXT-GEN 3D BODY SCULPTING",
+        "text": "Experience 360° targeted waist compression & seamless contouring with medical-grade precision.",
+        "button_label": "DISCOVER 3D COLLECTION",
+        "button_link": "shopify://collections/all"
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "three_hero_section"
   ]
 }
