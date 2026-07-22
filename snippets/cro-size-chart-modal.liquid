@@ -1,0 +1,181 @@
+{% comment %}
+  Interactive Shapewear Size Chart Modal (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="cro-size-chart-trigger">
+  <button type="button" class="cro-sc__btn" onclick="document.getElementById('cro-size-modal').style.display='flex'">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0l12.6 12.6z"/>
+      <path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/>
+    </svg>
+    <span>Size Guide & Fit Guarantee</span>
+  </button>
+</div>
+
+<!-- Modal Container -->
+<div id="cro-size-modal" class="cro-size-modal" style="display: none;">
+  <div class="cro-sm__backdrop" onclick="document.getElementById('cro-size-modal').style.display='none'"></div>
+
+  <div class="cro-sm__content">
+    <div class="cro-sm__header">
+      <h3 class="cro-sm__title">📏 Official Shapewear Size Guide</h3>
+      <button type="button" class="cro-sm__close" onclick="document.getElementById('cro-size-modal').style.display='none'">&times;</button>
+    </div>
+
+    <p class="cro-sm__subtitle">If you are between sizes, we recommend sizing UP for all-day comfort or sizing DOWN for extreme compression.</p>
+
+    <table class="cro-sm__table">
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th>Waist (in)</th>
+          <th>Hips (in)</th>
+          <th>Weight (lbs)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>S / M</strong></td>
+          <td>24" - 28"</td>
+          <td>34" - 38"</td>
+          <td>100 - 140 lbs</td>
+        </tr>
+        <tr>
+          <td><strong>L / XL</strong></td>
+          <td>29" - 33"</td>
+          <td>39" - 43"</td>
+          <td>145 - 180 lbs</td>
+        </tr>
+        <tr>
+          <td><strong>2XL / 3XL</strong></td>
+          <td>34" - 39"</td>
+          <td>44" - 49"</td>
+          <td>185 - 230 lbs</td>
+        </tr>
+        <tr>
+          <td><strong>4XL / 5XL</strong></td>
+          <td>40" - 46"</td>
+          <td>50" - 56"</td>
+          <td>235 - 280 lbs</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cro-sm__footer">
+      <span>🛡️ <strong>100% Free Exchange Guarantee:</strong> If it doesn't fit perfectly, we swap it for FREE.</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cro-size-chart-trigger {
+    margin-block: 0.75rem;
+  }
+
+  .cro-sc__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #0f172a;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .cro-sc__btn:hover {
+    color: #38bdf8;
+  }
+
+  .cro-size-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .cro-sm__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .cro-sm__content {
+    position: relative;
+    z-index: 2;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  }
+
+  .cro-sm__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .cro-sm__title {
+    font-family: 'Hunter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .cro-sm__close {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: #64748b;
+    line-height: 1;
+  }
+
+  .cro-sm__subtitle {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .cro-sm__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+  }
+
+  .cro-sm__table th,
+  .cro-sm__table td {
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.85rem;
+  }
+
+  .cro-sm__table th {
+    background: #f8fafc;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .cro-sm__footer {
+    background: #ecfdf5;
+    padding: 0.85rem;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    color: #065f46;
+    text-align: center;
+  }
+</style>

@@ -286,11 +286,54 @@
         "button_label": "DISCOVER 3D COLLECTION",
         "button_link": "shopify://collections/all"
       }
+    },
+    "instagram_stories": {
+      "type": "instagram-stories",
+      "settings": {}
+    },
+    "before_after": {
+      "type": "before-after-slider",
+      "settings": {
+        "subheading": "REAL VISIBLE RESULTS",
+        "heading": "Instant -3 Inches Waist Contouring",
+        "description": "Drag the slider to see how ConvertStudio medical-grade shapewear smooths curves and Sculpts your silhouette under any outfit."
+      }
+    },
+    "comparison_matrix": {
+      "type": "comparison-table",
+      "settings": {
+        "subheading": "WHY WE ARE #1",
+        "heading": "CONVERTSTUDIO VS OTHERS"
+      }
+    },
+    "shoppable_hotspot": {
+      "type": "shoppable-image",
+      "settings": {
+        "subheading": "TAP TO SHOP THE LOOK",
+        "heading": "INSTAGRAM LIFESTYLE LOOKBOOK"
+      }
+    },
+    "tiktok_ugc": {
+      "type": "tiktok-videos",
+      "settings": {
+        "subheading": "VIRAL ON TIKTOK",
+        "heading": "50,000+ WOMEN CAN'T BE WRONG"
+      }
+    },
+    "trustpilot_social_proof": {
+      "type": "trustpilot-reviews",
+      "settings": {}
     }
   },
   "order": [
+    "instagram_stories",
     "hero_jVaWmY",
     "product_list_fa6P9H",
-    "three_hero_section"
+    "three_hero_section",
+    "before_after",
+    "comparison_matrix",
+    "shoppable_hotspot",
+    "tiktok_ugc",
+    "trustpilot_social_proof"
   ]
 }

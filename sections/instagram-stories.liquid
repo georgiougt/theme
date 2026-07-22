@@ -1,0 +1,212 @@
+{% comment %}
+  Instagram / TikTok Video Story Highlights Section (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="instagram-stories-section page-width color-custom-{{ section.id }}">
+  <div class="is-bubbles">
+    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800', 'Hourglass Body Shaper')">
+      <div class="is-ring">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Story" class="is-avatar">
+      </div>
+      <span class="is-label">Hourglass Shaper</span>
+    </div>
+
+    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800', 'Tummy Control Shorts')">
+      <div class="is-ring">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150" alt="Story" class="is-avatar">
+      </div>
+      <span class="is-label">Tummy Control</span>
+    </div>
+
+    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800', 'Real Customer Try-Ons')">
+      <div class="is-ring">
+        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150" alt="Story" class="is-avatar">
+      </div>
+      <span class="is-label">Try-On Hauls</span>
+    </div>
+
+    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800', 'Before & After Transformation')">
+      <div class="is-ring">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150" alt="Story" class="is-avatar">
+      </div>
+      <span class="is-label">Before & After</span>
+    </div>
+  </div>
+</div>
+
+<!-- Story Video Modal -->
+<div id="is-story-modal" class="is-modal" style="display:none;">
+  <div class="is-modal-bg" onclick="closeStoryModal()"></div>
+  <div class="is-modal-card">
+    <button type="button" class="is-modal-close" onclick="closeStoryModal()">&times;</button>
+    <img id="is-story-img" src="" alt="Story View" class="is-modal-img">
+    <div class="is-modal-footer">
+      <span id="is-story-title" class="is-modal-title"></span>
+      <a href="/collections/all" class="is-modal-btn">SHOP THIS LOOK</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .instagram-stories-section {
+    padding-block: 1.5rem;
+    overflow-x: auto;
+  }
+
+  .is-bubbles {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-inline: 0.5rem;
+  }
+
+  .is-bubble {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .is-ring {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    transition: transform 0.2s ease;
+  }
+
+  .is-bubble:hover .is-ring {
+    transform: scale(1.08);
+  }
+
+  .is-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
+  }
+
+  .is-label {
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* Modal */
+  .is-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .is-modal-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .is-modal-card {
+    position: relative;
+    z-index: 2;
+    max-width: 380px;
+    width: 100%;
+    height: 600px;
+    background: #0f172a;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .is-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    font-size: 1.75rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .is-modal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .is-modal-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .is-modal-title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .is-modal-btn {
+    background: #ffffff;
+    color: #0f172a;
+    text-decoration: none;
+    font-family: 'Hunter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 50px;
+  }
+</style>
+
+<script>
+  function openStoryModal(imgSrc, title) {
+    const modal = document.getElementById('is-story-modal');
+    const img = document.getElementById('is-story-img');
+    const titleEl = document.getElementById('is-story-title');
+
+    if (modal && img && titleEl) {
+      img.src = imgSrc;
+      titleEl.textContent = title;
+      modal.style.display = 'flex';
+    }
+  }
+
+  function closeStoryModal() {
+    const modal = document.getElementById('is-story-modal');
+    if (modal) modal.style.display = 'none';
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Instagram Video Stories",
+  "tag": "section",
+  "class": "section-instagram-stories",
+  "presets": [
+    {
+      "name": "Instagram Video Stories"
+    }
+  ]
+}
+{% endschema %}

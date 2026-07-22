@@ -1,0 +1,215 @@
+{% comment %}
+  "Us vs Them" Comparison Table Section (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="comparison-table-section page-width color-custom-{{ section.id }}">
+  <div class="ct-header text-center">
+    <span class="ct-tagline">{{ section.settings.subheading | default: "WHY WE ARE #1" }}</span>
+    <h2 class="ct-title">{{ section.settings.heading | default: "CONVERTSTUDIO VS OTHERS" }}</h2>
+  </div>
+
+  <div class="ct-wrapper">
+    <table class="ct-table">
+      <thead>
+        <tr>
+          <th class="ct-col-feature">KEY FEATURES</th>
+          <th class="ct-col-brand is-us">
+            <span class="ct-brand-badge">RECOMMENDED</span>
+            <div class="ct-brand-name">CONVERTSTUDIO</div>
+          </th>
+          <th class="ct-col-brand is-them">
+            <div class="ct-brand-name">CHEAP KNOCKOFFS</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ct-feature-name">Medical-Grade 360° Compression</td>
+          <td class="ct-cell-us">
+            <svg class="ct-icon-check" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </td>
+          <td class="ct-cell-them">
+            <svg class="ct-icon-cross" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </td>
+        </tr>
+        <tr>
+          <td class="ct-feature-name">Anti-Roll Silicone Grip Bands</td>
+          <td class="ct-cell-us">
+            <svg class="ct-icon-check" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </td>
+          <td class="ct-cell-them">
+            <svg class="ct-icon-cross" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </td>
+        </tr>
+        <tr>
+          <td class="ct-feature-name">Invisible Under Any Dress or Jeans</td>
+          <td class="ct-cell-us">
+            <svg class="ct-icon-check" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </td>
+          <td class="ct-cell-them">
+            <svg class="ct-icon-cross" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </td>
+        </tr>
+        <tr>
+          <td class="ct-feature-name">Breathable All-Day Moisture Wicking Fabric</td>
+          <td class="ct-cell-us">
+            <svg class="ct-icon-check" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </td>
+          <td class="ct-cell-them">
+            <svg class="ct-icon-cross" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </td>
+        </tr>
+        <tr>
+          <td class="ct-feature-name">30-Day Money Back & Free Exchange Guarantee</td>
+          <td class="ct-cell-us">
+            <svg class="ct-icon-check" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </td>
+          <td class="ct-cell-them">
+            <svg class="ct-icon-cross" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .comparison-table-section {
+    padding-block: 4rem;
+  }
+
+  .ct-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 2.5rem auto;
+  }
+
+  .ct-tagline {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #38bdf8;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  .ct-title {
+    font-family: 'Hunter', sans-serif !important;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .ct-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+    overflow-x: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+  }
+
+  .ct-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .ct-table th,
+  .ct-table td {
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .ct-col-feature {
+    text-align: left !important;
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    width: 45%;
+    padding-left: 1.5rem !important;
+  }
+
+  .ct-feature-name {
+    text-align: left !important;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: #0f172a;
+    padding-left: 1.5rem !important;
+  }
+
+  .ct-col-brand.is-us {
+    position: relative;
+    background: #f1f5f9;
+    width: 30%;
+  }
+
+  .ct-cell-us {
+    background: #f8fafc;
+  }
+
+  .ct-col-brand.is-them {
+    width: 25%;
+  }
+
+  .ct-brand-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.65rem;
+    border-radius: 50px;
+  }
+
+  .ct-brand-name {
+    font-family: 'Hunter', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .ct-icon-check {
+    color: #10b981;
+  }
+
+  .ct-icon-cross {
+    color: #ef4444;
+    opacity: 0.6;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Us vs Them Matrix",
+  "tag": "section",
+  "class": "section-comparison-table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "WHY WE ARE #1"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "CONVERTSTUDIO VS OTHERS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Us vs Them Matrix"
+    }
+  ]
+}
+{% endschema %}

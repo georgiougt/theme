@@ -1,0 +1,91 @@
+{% comment %}
+  Floating Back-to-Top Button with Scroll Progress Ring (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="cro-scroll-top" id="cro-scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  <svg class="cro-st__ring" width="48" height="48" viewBox="0 0 48 48">
+    <circle class="cro-st__bg" cx="24" cy="24" r="20" fill="none" stroke="#e2e8f0" stroke-width="3"/>
+    <circle class="cro-st__progress" id="cro-st-progress" cx="24" cy="24" r="20" fill="none" stroke="#0f172a" stroke-width="3" stroke-dasharray="125.6" stroke-dashoffset="125.6"/>
+  </svg>
+  <div class="cro-st__icon">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+      <path d="m18 15-6-6-6 6"/>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .cro-scroll-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 998;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+  }
+
+  .cro-scroll-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .cro-scroll-top:hover {
+    transform: translateY(-3px);
+  }
+
+  .cro-st__ring {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+  }
+
+  .cro-st__icon {
+    color: #0f172a;
+    position: relative;
+    z-index: 2;
+    display: flex;
+  }
+</style>
+
+<script>
+  (function () {
+    const btn = document.getElementById('cro-scroll-top');
+    const circle = document.getElementById('cro-st-progress');
+    const circumference = 125.6;
+
+    const handleScroll = () => {
+      if (!btn || !circle) return;
+      const pageWrapper = document.querySelector('.page-wrapper');
+      const winScroll = window.scrollY || document.documentElement.scrollTop || 0;
+      const wrapperScroll = pageWrapper ? pageWrapper.scrollTop : 0;
+      const scrollTop = Math.max(winScroll, wrapperScroll);
+
+      const maxScroll = (pageWrapper ? pageWrapper.scrollHeight : document.documentElement.scrollHeight) - window.innerHeight;
+      const progress = Math.min(scrollTop / maxScroll, 1);
+
+      circle.style.strokeDashoffset = circumference - progress * circumference;
+
+      if (scrollTop > 300) {
+        btn.classList.add('is-visible');
+      } else {
+        btn.classList.remove('is-visible');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    const pageWrapper = document.querySelector('.page-wrapper');
+    if (pageWrapper) pageWrapper.addEventListener('scroll', handleScroll, { passive: true });
+  })();
+</script>

@@ -1,0 +1,91 @@
+{% comment %}
+  Clickable Auto-Apply Discount Code Banner (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="cro-clickable-discount" id="cro-discount-banner" onclick="applyCroDiscount('SCULPT20')">
+  <div class="cro-cd__left">
+    <span class="cro-cd__badge">COUPON UNLOCKED</span>
+    <span class="cro-cd__text">Tap to apply <strong>SCULPT20</strong> for extra 20% OFF</span>
+  </div>
+  <button type="button" class="cro-cd__btn" id="cro-discount-btn">APPLY NOW</button>
+</div>
+
+<style>
+  .cro-clickable-discount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    margin-block: 1rem;
+    background: #fffbeb;
+    border: 2px dashed #f59e0b;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .cro-clickable-discount:hover {
+    transform: translateY(-1px);
+    background: #fef3c7;
+  }
+
+  .cro-cd__left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cro-cd__badge {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    color: #b45309;
+    letter-spacing: 0.08em;
+  }
+
+  .cro-cd__text {
+    font-size: 0.8125rem;
+    color: #78350f;
+  }
+
+  .cro-cd__btn {
+    font-family: 'Hunter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.4rem 0.85rem;
+    background: #d97706;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .cro-clickable-discount.is-applied {
+    background: #ecfdf5;
+    border-color: #10b981;
+  }
+
+  .cro-clickable-discount.is-applied .cro-cd__badge {
+    color: #047857;
+  }
+
+  .cro-clickable-discount.is-applied .cro-cd__text {
+    color: #065f46;
+  }
+
+  .cro-clickable-discount.is-applied .cro-cd__btn {
+    background: #10b981;
+  }
+</style>
+
+<script>
+  function applyCroDiscount(code) {
+    const banner = document.getElementById('cro-discount-banner');
+    const btn = document.getElementById('cro-discount-btn');
+    if (banner && btn) {
+      banner.classList.add('is-applied');
+      btn.textContent = '✓ APPLIED!';
+      // Store in session for checkout
+      fetch('/discount/' + code);
+    }
+  }
+</script>

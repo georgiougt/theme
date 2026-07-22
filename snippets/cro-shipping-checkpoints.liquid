@@ -1,0 +1,160 @@
+{% comment %}
+  Shipping Checkpoints Timeline (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="cro-shipping-checkpoints">
+  <div class="cro-sc__header">
+    <span class="cro-sc__icon">🚚</span>
+    <span class="cro-sc__title">EXPRESS WORLDWIDE DELIVERY TIMELINE</span>
+  </div>
+
+  <div class="cro-sc__timeline">
+    <div class="cro-sc__step is-done">
+      <div class="cro-sc__node">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div class="cro-sc__label">Order Placed</div>
+      <div class="cro-sc__date">Today</div>
+    </div>
+
+    <div class="cro-sc__line"></div>
+
+    <div class="cro-sc__step is-active">
+      <div class="cro-sc__node">
+        <span class="cro-sc__pulse"></span>
+      </div>
+      <div class="cro-sc__label">Order Processing</div>
+      <div class="cro-sc__date">Within 24 Hrs</div>
+    </div>
+
+    <div class="cro-sc__line"></div>
+
+    <div class="cro-sc__step">
+      <div class="cro-sc__node">📦</div>
+      <div class="cro-sc__label">Est. Delivery</div>
+      <div class="cro-sc__date" data-sc-deliv-date>Calculated...</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cro-shipping-checkpoints {
+    margin-block: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: #f1f5f9;
+    border-radius: 10px;
+    border: 1px dashed #cbd5e1;
+  }
+
+  .cro-sc__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .cro-sc__title {
+    font-family: 'Hunter', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #0f172a;
+  }
+
+  .cro-sc__timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .cro-sc__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+  }
+
+  .cro-sc__node {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    margin-bottom: 0.4rem;
+    color: #64748b;
+  }
+
+  .cro-sc__step.is-done .cro-sc__node {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+  }
+
+  .cro-sc__step.is-active .cro-sc__node {
+    border-color: #0f172a;
+    background: #0f172a;
+    position: relative;
+  }
+
+  .cro-sc__pulse {
+    width: 8px;
+    height: 8px;
+    background: #38bdf8;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+    animation: cro-sc-pulse-anim 1.5s infinite;
+  }
+
+  @keyframes cro-sc-pulse-anim {
+    0% {
+      box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(56, 189, 248, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+    }
+  }
+
+  .cro-sc__line {
+    flex-grow: 1;
+    height: 2px;
+    background: #cbd5e1;
+    margin-top: 13px;
+  }
+
+  .cro-sc__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .cro-sc__date {
+    font-size: 0.6875rem;
+    color: #64748b;
+  }
+</style>
+
+<script>
+  (function () {
+    const el = document.querySelector('[data-sc-deliv-date]');
+    if (el) {
+      const d = new Date();
+      d.setDate(d.getDate() + 3);
+      const options = { month: 'short', day: 'numeric' };
+      el.textContent = d.toLocaleDateString('en-US', options);
+    }
+  })();
+</script>

@@ -1,0 +1,153 @@
+{% comment %}
+  Exit-Intent & Timed Promo Discount Popup (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div id="cro-promo-popup" class="cro-promo-popup" style="display: none;">
+  <div class="cro-pp__backdrop" onclick="closeCroPromoPopup()"></div>
+
+  <div class="cro-pp__card">
+    <button type="button" class="cro-pp__close" onclick="closeCroPromoPopup()">&times;</button>
+    <div class="cro-pp__badge">SPECIAL OFFER UNLOCKED</div>
+    <h3 class="cro-pp__title">CLAIM AN EXTRA 15% OFF YOUR ENTIRE ORDER</h3>
+    <p class="cro-pp__text">Enter your email below to unlock your instant 15% OFF discount code & VIP shapewear drop access.</p>
+
+    <form onsubmit="handleCroPromoSubmit(event)" class="cro-pp__form">
+      <input type="email" placeholder="Enter your email address" required class="cro-pp__input">
+      <button type="submit" class="cro-pp__btn">GET MY 15% OFF CODE</button>
+    </form>
+
+    <span class="cro-pp__guarantee">🔒 No spam ever. Unsubscribe anytime.</span>
+  </div>
+</div>
+
+<style>
+  .cro-promo-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .cro-pp__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(6px);
+  }
+
+  .cro-pp__card {
+    position: relative;
+    z-index: 2;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  .cro-pp__close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: #64748b;
+  }
+
+  .cro-pp__badge {
+    display: inline-block;
+    background: #ecfdf5;
+    color: #047857;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+  }
+
+  .cro-pp__title {
+    font-family: 'Hunter', sans-serif !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+
+  .cro-pp__text {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .cro-pp__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .cro-pp__input {
+    padding: 0.85rem 1.25rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    width: 100%;
+  }
+
+  .cro-pp__btn {
+    padding: 0.85rem 1.25rem;
+    background: #0f172a;
+    color: #ffffff;
+    font-family: 'Hunter', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .cro-pp__btn:hover {
+    background: #38bdf8;
+  }
+
+  .cro-pp__guarantee {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+</style>
+
+<script>
+  (function () {
+    const shown = sessionStorage.getItem('cro_promo_shown');
+    if (!shown) {
+      setTimeout(() => {
+        const popup = document.getElementById('cro-promo-popup');
+        if (popup) popup.style.display = 'flex';
+      }, 7000);
+    }
+  })();
+
+  function closeCroPromoPopup() {
+    const popup = document.getElementById('cro-promo-popup');
+    if (popup) popup.style.display = 'none';
+    sessionStorage.setItem('cro_promo_shown', 'true');
+  }
+
+  function handleCroPromoSubmit(e) {
+    e.preventDefault();
+    alert('🎉 Success! Your 15% OFF discount code VIP15 has been applied.');
+    closeCroPromoPopup();
+  }
+</script>

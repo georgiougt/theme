@@ -257,6 +257,27 @@
   </div>
 </div>
 
+<!-- Total Savings Highlight Banner (Shrine Pro Feature) -->
+{%- assign total_savings = 0 -%}
+{%- for item in cart.items -%}
+  {%- if item.original_line_price > item.final_line_price -%}
+    {%- assign discount = item.original_line_price | minus: item.final_line_price -%}
+    {%- assign total_savings = total_savings | plus: discount -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if total_savings > 0 -%}
+  <div class="cart-savings-banner" style="background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 8px; padding: 0.65rem 1rem; margin-block: 0.5rem; text-align: center; font-size: 0.85rem; font-weight: 700; color: #065f46;">
+    🎉 YOU ARE SAVING {{ total_savings | money }} ON THIS ORDER!
+  </div>
+{%- endif -%}
+
+<!-- Terms & Policies Checkbox (Shrine Pro Feature) -->
+<div class="cart-terms-checkbox" style="margin-block: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.775rem; color: #475569;">
+  <input type="checkbox" id="cart-terms-check" checked style="accent-color: #0f172a; width: 16px; height: 16px; cursor: pointer;">
+  <label for="cart-terms-check" style="cursor: pointer;">I agree to the <a href="/policies/terms-of-service" target="_blank" style="text-decoration: underline; color: #0f172a;">Terms & Conditions</a> and <a href="/policies/refund-policy" target="_blank" style="text-decoration: underline; color: #0f172a;">30-Day Guarantee</a>.</label>
+</div>
+
 <div class="cart__ctas">
   <button
     type="submit"

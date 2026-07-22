@@ -23,7 +23,12 @@
       </a>
     </div>
     {% content_for 'blocks' %}
+    {% render 'cro-review-avatars' %}
     {% render 'cro-urgency-badges', product: closest.product %}
+    {% render 'cro-size-chart-modal' %}
+    {% render 'cro-quantity-breaks', product: closest.product %}
+    {% render 'cro-clickable-discount' %}
+    {% render 'cro-shipping-checkpoints' %}
     {% render 'cro-product-benefits', product: closest.product %}
     {% render 'trust-badges', context: 'pdp' %}
   {% endcapture %}

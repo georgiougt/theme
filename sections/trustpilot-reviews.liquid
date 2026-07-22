@@ -1,0 +1,151 @@
+{% comment %}
+  Trustpilot Reviews & Social Proof Grid (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="trustpilot-reviews-section page-width color-custom-{{ section.id }}">
+  <div class="tr-header text-center">
+    <div class="tr-summary">
+      <span class="tr-trustpilot-logo">★ Trustpilot</span>
+      <div class="tr-stars">★★★★★</div>
+      <span class="tr-score">Rated <strong>4.9 / 5.0</strong> based on <strong>2,480+ Reviews</strong></span>
+    </div>
+  </div>
+
+  <div class="tr-grid">
+    <!-- Review 1 -->
+    <div class="tr-card">
+      <div class="tr-card-stars">★★★★★</div>
+      <h4 class="tr-card-title">"Invisible under my wedding dress!"</h4>
+      <p class="tr-card-text">I was terrified of shapewear lines showing on my big day. ConvertStudio smoothed my belly completely and felt like second skin all night long!</p>
+      <div class="tr-card-author">
+        <strong>Jessica M.</strong> <span class="tr-verified">✓ Verified Buyer</span>
+      </div>
+    </div>
+
+    <!-- Review 2 -->
+    <div class="tr-card">
+      <div class="tr-card-stars">★★★★★</div>
+      <h4 class="tr-card-title">"Zero rolling down!"</h4>
+      <p class="tr-card-text">Every other shapewear I bought rolled down after 10 minutes. The silicone bands on this pair actually WORK. Ordering 2 more pairs right now!</p>
+      <div class="tr-card-author">
+        <strong>Amanda K.</strong> <span class="tr-verified">✓ Verified Buyer</span>
+      </div>
+    </div>
+
+    <!-- Review 3 -->
+    <div class="tr-card">
+      <div class="tr-card-stars">★★★★★</div>
+      <h4 class="tr-card-title">"Confidence boosted 100%"</h4>
+      <p class="tr-card-text">Dropped 2 dress sizes instantly. My husband noticed immediately and I feel incredible wearing my favorite bodycon dresses again.</p>
+      <div class="tr-card-author">
+        <strong>Rachel T.</strong> <span class="tr-verified">✓ Verified Buyer</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .trustpilot-reviews-section {
+    padding-block: 4rem;
+  }
+
+  .tr-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .tr-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tr-trustpilot-logo {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #00b67a;
+  }
+
+  .tr-stars {
+    color: #00b67a;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .tr-score {
+    font-size: 0.9375rem;
+    color: #475569;
+  }
+
+  .tr-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media screen and (max-width: 850px) {
+    .tr-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tr-card {
+    background: #ffffff;
+    padding: 1.75rem;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tr-card-stars {
+    color: #00b67a;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tr-card-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .tr-card-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #475569;
+    flex-grow: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  .tr-card-author {
+    font-size: 0.8125rem;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 0.85rem;
+  }
+
+  .tr-verified {
+    color: #10b981;
+    font-weight: 700;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trustpilot Reviews Grid",
+  "tag": "section",
+  "class": "section-trustpilot-reviews",
+  "presets": [
+    {
+      "name": "Trustpilot Reviews Grid"
+    }
+  ]
+}
+{% endschema %}

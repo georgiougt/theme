@@ -1,0 +1,227 @@
+{% comment %}
+  Quantity Breaks / Tiered Volume Discounts Block (Shrine Pro Feature)
+  ConvertStudio Theme
+{% endcomment %}
+
+<div class="cro-quantity-breaks" data-cro-quantity-breaks>
+  <div class="cro-qb__header">
+    <span class="cro-qb__title">🔥 CHOOSE YOUR QUANTITY & SAVE</span>
+    <span class="cro-qb__subtitle">Stock is limited — discount applied automatically</span>
+  </div>
+
+  <div class="cro-qb__options">
+    <!-- Option 1: Buy 1 -->
+    <label class="cro-qb__card" data-quantity="1" data-discount="0">
+      <input type="radio" name="cro_qty_break" value="1">
+      <div class="cro-qb__card-radio"></div>
+      <div class="cro-qb__card-info">
+        <div class="cro-qb__card-title">Buy 1 Pair</div>
+        <div class="cro-qb__card-sub">Standard Price</div>
+      </div>
+      <div class="cro-qb__card-price">
+        <span class="cro-qb__price-current">{{ product.price | money }}</span>
+      </div>
+    </label>
+
+    <!-- Option 2: Buy 2 (15% OFF - Most Popular) -->
+    <label class="cro-qb__card is-selected is-popular" data-quantity="2" data-discount="15">
+      <div class="cro-qb__badge cro-qb__badge--popular">MOST POPULAR — SAVE 15%</div>
+      <input type="radio" name="cro_qty_break" value="2" checked>
+      <div class="cro-qb__card-radio"></div>
+      <div class="cro-qb__card-info">
+        <div class="cro-qb__card-title">Buy 2 Pairs</div>
+        <div class="cro-qb__card-sub">Save 15% + Free Shipping</div>
+      </div>
+      <div class="cro-qb__card-price">
+        <span class="cro-qb__price-current">{{ product.price | times: 0.85 | money }}/ea</span>
+        <span class="cro-qb__price-compare">{{ product.price | money }}</span>
+      </div>
+    </label>
+
+    <!-- Option 3: Buy 3 (25% OFF - Best Value + Free Gift) -->
+    <label class="cro-qb__card is-best-value" data-quantity="3" data-discount="25">
+      <div class="cro-qb__badge cro-qb__badge--best">BEST VALUE — 25% OFF + FREE GIFT</div>
+      <input type="radio" name="cro_qty_break" value="3">
+      <div class="cro-qb__card-radio"></div>
+      <div class="cro-qb__card-info">
+        <div class="cro-qb__card-title">Buy 3 Pairs</div>
+        <div class="cro-qb__card-sub">25% OFF + Free Body Gel ($25 Value)</div>
+      </div>
+      <div class="cro-qb__card-price">
+        <span class="cro-qb__price-current">{{ product.price | times: 0.75 | money }}/ea</span>
+        <span class="cro-qb__price-compare">{{ product.price | money }}</span>
+      </div>
+    </label>
+  </div>
+</div>
+
+<style>
+  .cro-quantity-breaks {
+    margin-block: 1.5rem;
+    padding: 1.25rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+  }
+
+  .cro-qb__header {
+    margin-bottom: 1rem;
+  }
+
+  .cro-qb__title {
+    display: block;
+    font-family: 'Hunter', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #0f172a;
+  }
+
+  .cro-qb__subtitle {
+    font-size: 0.8125rem;
+    color: #64748b;
+  }
+
+  .cro-qb__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .cro-qb__card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cro-qb__card:hover {
+    border-color: #94a3b8;
+  }
+
+  .cro-qb__card.is-selected {
+    border-color: #0f172a;
+    background: #f1f5f9;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  }
+
+  .cro-qb__card.is-best-value.is-selected {
+    border-color: #10b981;
+    background: #ecfdf5;
+  }
+
+  .cro-qb__badge {
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border-radius: 50px;
+    color: #ffffff;
+  }
+
+  .cro-qb__badge--popular {
+    background: #0f172a;
+  }
+
+  .cro-qb__badge--best {
+    background: #10b981;
+  }
+
+  .cro-qb__card input[type="radio"] {
+    display: none;
+  }
+
+  .cro-qb__card-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #94a3b8;
+    border-radius: 50%;
+    margin-right: 0.85rem;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .cro-qb__card.is-selected .cro-qb__card-radio {
+    border-color: #0f172a;
+  }
+
+  .cro-qb__card.is-selected .cro-qb__card-radio::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    background: #0f172a;
+    border-radius: 50%;
+  }
+
+  .cro-qb__card-info {
+    flex-grow: 1;
+  }
+
+  .cro-qb__card-title {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: #0f172a;
+  }
+
+  .cro-qb__card-sub {
+    font-size: 0.775rem;
+    color: #64748b;
+  }
+
+  .cro-qb__card-price {
+    text-align: right;
+  }
+
+  .cro-qb__price-current {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #0f172a;
+  }
+
+  .cro-qb__price-compare {
+    display: block;
+    font-size: 0.775rem;
+    text-decoration: line-through;
+    color: #94a3b8;
+  }
+</style>
+
+<script>
+  (function () {
+    document.addEventListener('change', function (e) {
+      if (e.target && e.target.name === 'cro_qty_break') {
+        const container = e.target.closest('.cro-quantity-breaks');
+        if (!container) return;
+
+        const cards = container.querySelectorAll('.cro-qb__card');
+        cards.forEach((card) => card.classList.remove('is-selected'));
+
+        const selectedCard = e.target.closest('.cro-qb__card');
+        if (selectedCard) {
+          selectedCard.classList.add('is-selected');
+          const qty = selectedCard.getAttribute('data-quantity');
+
+          // Sync quantity with Shopify primary product form quantity input
+          const primaryQtyInput = document.querySelector('form[action*="/cart/add"] input[name="quantity"]');
+          if (primaryQtyInput) {
+            primaryQtyInput.value = qty;
+            primaryQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        }
+      }
+    });
+  })();
+</script>
