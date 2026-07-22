@@ -1,0 +1,81 @@
+{% comment %}
+  Renders Cart Drawer Reservation Countdown Timer
+  Usage: {% render 'cart-timer' %}
+{% endcomment %}
+
+<cart-timer class="cart-timer">
+  <div class="cart-timer__container">
+    <svg class="cart-timer__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <polyline points="12 6 12 12 16 14"></polyline>
+    </svg>
+    <span class="cart-timer__text">
+      Your cart is reserved for <strong data-cart-countdown>09:59</strong> minutes!
+    </span>
+  </div>
+</cart-timer>
+
+<style>
+  .cart-timer {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #fef2f2;
+    border-bottom: 1px solid #fee2e2;
+  }
+
+  .cart-timer__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: #991b1b;
+  }
+
+  .cart-timer__icon {
+    width: 16px;
+    height: 16px;
+    color: #dc2626;
+    flex-shrink: 0;
+  }
+
+  .cart-timer strong {
+    font-weight: 700;
+    color: #dc2626;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+<script>
+  if (!customElements.get('cart-timer')) {
+    customElements.define(
+      'cart-timer',
+      class CartTimer extends HTMLElement {
+        connectedCallback() {
+          this.initCountdown();
+        }
+
+        initCountdown() {
+          const countdownEl = this.querySelector('[data-cart-countdown]');
+          if (!countdownEl) return;
+
+          let seconds = 599; // 9 min 59 sec
+
+          const timer = setInterval(() => {
+            if (seconds <= 0) {
+              clearInterval(timer);
+              countdownEl.textContent = '00:00';
+              return;
+            }
+
+            seconds--;
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            countdownEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+          }, 1000);
+        }
+      }
+    );
+  }
+</script>

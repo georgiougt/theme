@@ -23,6 +23,9 @@
       </a>
     </div>
     {% content_for 'blocks' %}
+    {% render 'cro-urgency-badges', product: closest.product %}
+    {% render 'cro-product-benefits', product: closest.product %}
+    {% render 'trust-badges', context: 'pdp' %}
   {% endcapture %}
 
   {% render 'group',

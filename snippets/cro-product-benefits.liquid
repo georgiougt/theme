@@ -1,0 +1,188 @@
+{% comment %}
+  Renders CRO Above-the-fold Benefit Bullets & Collapsible Accordions
+  Usage: {% render 'cro-product-benefits', product: product %}
+{% endcomment %}
+
+<div class="cro-product-benefits">
+  <!-- Key Value Props / Benefit Bullets -->
+  <div class="cro-product-benefits__list">
+    <div class="cro-product-benefits__item">
+      <svg class="cro-product-benefits__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span><strong>Free & Fast Worldwide Shipping</strong> on all orders over $50</span>
+    </div>
+
+    <div class="cro-product-benefits__item">
+      <svg class="cro-product-benefits__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span><strong>30-Day Risk-Free Trial</strong> — 100% Money-Back Guarantee</span>
+    </div>
+
+    <div class="cro-product-benefits__item">
+      <svg class="cro-product-benefits__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span><strong>Premium Craftsmanship & Quality</strong> with 2-Year Warranty</span>
+    </div>
+  </div>
+
+  <!-- Collapsible Product Accordions -->
+  <div class="cro-accordions">
+    <details class="cro-accordion" open>
+      <summary class="cro-accordion__summary">
+        <span class="cro-accordion__title">
+          <svg class="cro-accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          Shipping & Delivery Information
+        </span>
+        <span class="cro-accordion__arrow">▼</span>
+      </summary>
+      <div class="cro-accordion__content">
+        <p>Orders are dispatched within 24 hours. Standard shipping takes 3-5 business days. Express 2-day delivery is available at checkout. Tracking number provided immediately after dispatch.</p>
+      </div>
+    </details>
+
+    <details class="cro-accordion">
+      <summary class="cro-accordion__summary">
+        <span class="cro-accordion__title">
+          <svg class="cro-accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          30-Day Money-Back Guarantee & Returns
+        </span>
+        <span class="cro-accordion__arrow">▼</span>
+      </summary>
+      <div class="cro-accordion__content">
+        <p>We stand behind our products 100%. If you are not completely satisfied with your purchase within 30 days, contact our support team for a full refund or easy hassle-free exchange.</p>
+      </div>
+    </details>
+
+    <details class="cro-accordion">
+      <summary class="cro-accordion__summary">
+        <span class="cro-accordion__title">
+          <svg class="cro-accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          Specifications & Care Instructions
+        </span>
+        <span class="cro-accordion__arrow">▼</span>
+      </summary>
+      <div class="cro-accordion__content">
+        <p>Built with premium, sustainably sourced materials designed for maximum durability. Clean gently with a soft damp cloth. Avoid harsh chemical solvents.</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<style>
+  .cro-product-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-block: 1rem;
+    width: 100%;
+  }
+
+  .cro-product-benefits__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    background-color: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 8px;
+  }
+
+  .cro-product-benefits__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-foreground, #0f172a);
+  }
+
+  .cro-product-benefits__check {
+    width: 16px;
+    height: 16px;
+    color: #10b981;
+    flex-shrink: 0;
+  }
+
+  .cro-accordions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid rgb(var(--color-foreground-rgb, 0 0 0) / 0.1);
+    padding-top: 0.75rem;
+  }
+
+  .cro-accordion {
+    border: 1px solid rgb(var(--color-foreground-rgb, 0 0 0) / 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--color-background, #ffffff);
+    transition: border-color 0.2s ease;
+  }
+
+  .cro-accordion[open] {
+    border-color: rgba(15, 23, 42, 0.3);
+  }
+
+  .cro-accordion__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    color: var(--color-foreground, #0f172a);
+  }
+
+  .cro-accordion__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .cro-accordion__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cro-accordion__icon {
+    width: 16px;
+    height: 16px;
+    color: #64748b;
+  }
+
+  .cro-accordion__arrow {
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+    color: #64748b;
+  }
+
+  .cro-accordion[open] .cro-accordion__arrow {
+    transform: rotate(180deg);
+  }
+
+  .cro-accordion__content {
+    padding: 0 1rem 0.85rem 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-foreground, #475569);
+  }
+
+  .cro-accordion__content p {
+    margin: 0;
+  }
+</style>

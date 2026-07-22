@@ -104,6 +104,7 @@
 
           {%- unless cart.empty? -%}
             {% render 'free-shipping-bar' %}
+            {% render 'cart-timer' %}
           {%- endunless -%}
 
           {% capture cart_items_children %}

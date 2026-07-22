@@ -1,0 +1,205 @@
+{% comment %}
+  Renders CRO Urgency & Social Proof Signals
+  Usage: {% render 'cro-urgency-badges', product: product %}
+{% endcomment %}
+
+<cro-urgency-badges
+  class="cro-urgency-badges"
+  data-min-viewers="{{ settings.urgency_viewers_min | default: 14 }}"
+  data-max-viewers="{{ settings.urgency_viewers_max | default: 42 }}"
+>
+  {%- if settings.urgency_viewers_enable -%}
+    <div class="cro-urgency-badge cro-urgency-badge--viewers">
+      <span class="cro-urgency-badge__pulse"></span>
+      <span class="cro-urgency-badge__text">
+        <strong data-viewer-count>24</strong> people are viewing this item right now
+      </span>
+    </div>
+  {%- endif -%}
+
+  {%- if settings.urgency_stock_enable -%}
+    {%- assign inventory_qty = product.selected_or_first_available_variant.inventory_quantity -%}
+    {%- if inventory_qty <= 0 or inventory_qty > settings.urgency_stock_threshold -%}
+      {%- assign display_stock = 6 -%}
+    {%- else -%}
+      {%- assign display_stock = inventory_qty -%}
+    {%- endif -%}
+
+    <div class="cro-urgency-badge cro-urgency-badge--stock">
+      <svg class="cro-urgency-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+      <div class="cro-urgency-badge__stock-info">
+        <span class="cro-urgency-badge__text">
+          Hurry! Only <strong class="cro-text-danger">{{ display_stock }} left in stock</strong> — order soon!
+        </span>
+        <div class="cro-urgency-badge__stock-bar">
+          <div class="cro-urgency-badge__stock-fill" style="width: 25%;"></div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="cro-urgency-badge cro-urgency-badge--delivery">
+    <svg class="cro-urgency-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="1" y="3" width="15" height="13"></rect>
+      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+    </svg>
+    <span class="cro-urgency-badge__text">
+      Order within <strong data-delivery-timer>04 hrs 22 mins</strong> to get it by <strong data-delivery-date>Friday, Jul 25</strong>
+    </span>
+  </div>
+</cro-urgency-badges>
+
+<style>
+  .cro-urgency-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-block: 0.75rem;
+    width: 100%;
+  }
+
+  .cro-urgency-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.85rem;
+    background-color: var(--color-background-secondary, #f8fafc);
+    border: 1px solid rgb(var(--color-foreground-rgb, 0 0 0) / 0.08);
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    color: var(--color-foreground, #1e293b);
+  }
+
+  .cro-urgency-badge__pulse {
+    width: 10px;
+    height: 10px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    animation: cro-pulse 1.8s infinite;
+  }
+
+  @keyframes cro-pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+    }
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+  }
+
+  .cro-urgency-badge__icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: #eab308;
+  }
+
+  .cro-urgency-badge--delivery .cro-urgency-badge__icon {
+    color: #3b82f6;
+  }
+
+  .cro-text-danger {
+    color: #ef4444;
+    font-weight: 700;
+  }
+
+  .cro-urgency-badge__stock-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .cro-urgency-badge__stock-bar {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+
+  .cro-urgency-badge__stock-fill {
+    height: 100%;
+    background-color: #ef4444;
+    border-radius: 9999px;
+  }
+</style>
+
+<script>
+  if (!customElements.get('cro-urgency-badges')) {
+    customElements.define(
+      'cro-urgency-badges',
+      class CroUrgencyBadges extends HTMLElement {
+        connectedCallback() {
+          this.initViewerCount();
+          this.initDeliveryCountdown();
+        }
+
+        initViewerCount() {
+          const min = parseInt(this.dataset.minViewers || '14', 10);
+          const max = parseInt(this.dataset.maxViewers || '42', 10);
+          const viewerEl = this.querySelector('[data-viewer-count]');
+
+          if (viewerEl) {
+            const randomViewers = Math.floor(Math.random() * (max - min + 1)) + min;
+            viewerEl.textContent = randomViewers;
+
+            // Fluctuate viewer count slightly every 8-12 seconds
+            setInterval(() => {
+              const delta = Math.floor(Math.random() * 5) - 2;
+              const current = parseInt(viewerEl.textContent || randomViewers, 10);
+              const next = Math.max(min, Math.min(max, current + delta));
+              viewerEl.textContent = next;
+            }, 9000);
+          }
+        }
+
+        initDeliveryCountdown() {
+          const timerEl = this.querySelector('[data-delivery-timer]');
+          const dateEl = this.querySelector('[data-delivery-date]');
+
+          const updateTimer = () => {
+            const now = new Date();
+            const cutoff = new Date();
+            cutoff.setHours(18, 0, 0, 0); // 6:00 PM cutoff
+
+            if (now > cutoff) {
+              cutoff.setDate(cutoff.getDate() + 1);
+            }
+
+            const diff = cutoff - now;
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+            if (timerEl) {
+              timerEl.textContent = `${String(hours).padStart(2, '0')} hrs ${String(minutes).padStart(2, '0')} mins`;
+            }
+
+            if (dateEl) {
+              const deliveryDate = new Date();
+              deliveryDate.setDate(deliveryDate.getDate() + 2);
+              const options = { weekday: 'long', month: 'short', day: 'numeric' };
+              dateEl.textContent = deliveryDate.toLocaleDateString('en-US', options);
+            }
+          };
+
+          updateTimer();
+          setInterval(updateTimer, 60000);
+        }
+      }
+    );
+  }
+</script>
