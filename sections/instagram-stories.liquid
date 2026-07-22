@@ -5,33 +5,38 @@
 
 <div class="instagram-stories-section page-width color-custom-{{ section.id }}">
   <div class="is-bubbles">
-    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800', 'Hourglass Body Shaper')">
-      <div class="is-ring">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Story" class="is-avatar">
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- assign avatar_url = block.settings.avatar_image | image_url: width: 200 | default: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150' -%}
+        {%- assign story_url = block.settings.story_image | image_url: width: 800 | default: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800' -%}
+        <div class="is-bubble" onclick="openStoryModal('{{ story_url }}', '{{ block.settings.label | escape }}')" {{ block.shopify_attributes }}>
+          <div class="is-ring">
+            <img src="{{ avatar_url }}" alt="{{ block.settings.label }}" class="is-avatar" loading="lazy">
+          </div>
+          <span class="is-label">{{ block.settings.label }}</span>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <!-- Default Fallback Bubbles -->
+      <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800', 'Hourglass Body Shaper')">
+        <div class="is-ring">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Story" class="is-avatar">
+        </div>
+        <span class="is-label">Hourglass Shaper</span>
       </div>
-      <span class="is-label">Hourglass Shaper</span>
-    </div>
-
-    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800', 'Tummy Control Shorts')">
-      <div class="is-ring">
-        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150" alt="Story" class="is-avatar">
+      <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800', 'Tummy Control Shorts')">
+        <div class="is-ring">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150" alt="Story" class="is-avatar">
+        </div>
+        <span class="is-label">Tummy Control</span>
       </div>
-      <span class="is-label">Tummy Control</span>
-    </div>
-
-    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800', 'Real Customer Try-Ons')">
-      <div class="is-ring">
-        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150" alt="Story" class="is-avatar">
+      <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800', 'Real Customer Try-Ons')">
+        <div class="is-ring">
+          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150" alt="Story" class="is-avatar">
+        </div>
+        <span class="is-label">Try-On Hauls</span>
       </div>
-      <span class="is-label">Try-On Hauls</span>
-    </div>
-
-    <div class="is-bubble" onclick="openStoryModal('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800', 'Before & After Transformation')">
-      <div class="is-ring">
-        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150" alt="Story" class="is-avatar">
-      </div>
-      <span class="is-label">Before & After</span>
-    </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -203,9 +208,60 @@
   "name": "ConvertStudio: Instagram Video Stories",
   "tag": "section",
   "class": "section-instagram-stories",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story Highlight",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Bubble Label",
+          "default": "Hourglass Shaper"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar_image",
+          "label": "Bubble Avatar Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "story_image",
+          "label": "Full Screen Story Image/Card"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "ConvertStudio: Instagram Video Stories"
+      "name": "ConvertStudio: Instagram Video Stories",
+      "blocks": [
+        {
+          "type": "story",
+          "settings": {
+            "label": "Hourglass Shaper"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "label": "Tummy Control"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "label": "Try-On Hauls"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "label": "Before & After"
+          }
+        }
+      ]
     }
   ]
 }

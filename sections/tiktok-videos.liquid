@@ -10,41 +10,34 @@
   </div>
 
   <div class="tv-grid">
-    <!-- UGC Card 1 -->
-    <div class="tv-card">
-      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600" alt="TikTok UGC" class="tv-img">
-      <div class="tv-overlay">
-        <span class="tv-handle">@sophia_fits</span>
-        <p class="tv-quote">"Literally snatched my waist in seconds! 😱 Best shapewear ever."</p>
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- assign card_img = block.settings.image | image_url: width: 600 | default: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600' -%}
+        <div class="tv-card" {{ block.shopify_attributes }}>
+          <img src="{{ card_img }}" alt="TikTok UGC" class="tv-img" loading="lazy">
+          <div class="tv-overlay">
+            <span class="tv-handle">{{ block.settings.handle }}</span>
+            <p class="tv-quote">"{{ block.settings.quote }}"</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <!-- Default Fallback Cards -->
+      <div class="tv-card">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600" alt="TikTok UGC" class="tv-img">
+        <div class="tv-overlay">
+          <span class="tv-handle">@sophia_fits</span>
+          <p class="tv-quote">"Literally snatched my waist in seconds! 😱 Best shapewear ever."</p>
+        </div>
       </div>
-    </div>
-
-    <!-- UGC Card 2 -->
-    <div class="tv-card">
-      <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600" alt="TikTok UGC" class="tv-img">
-      <div class="tv-overlay">
-        <span class="tv-handle">@emma_glam</span>
-        <p class="tv-quote">"Fits under my tightest dress with ZERO lines visible! 🔥"</p>
+      <div class="tv-card">
+        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600" alt="TikTok UGC" class="tv-img">
+        <div class="tv-overlay">
+          <span class="tv-handle">@emma_glam</span>
+          <p class="tv-quote">"Fits under my tightest dress with ZERO lines visible! 🔥"</p>
+        </div>
       </div>
-    </div>
-
-    <!-- UGC Card 3 -->
-    <div class="tv-card">
-      <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600" alt="TikTok UGC" class="tv-img">
-      <div class="tv-overlay">
-        <span class="tv-handle">@chloe_style</span>
-        <p class="tv-quote">"Doesn't roll down at all! I wore it for 12 hrs comfortably."</p>
-      </div>
-    </div>
-
-    <!-- UGC Card 4 -->
-    <div class="tv-card">
-      <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600" alt="TikTok UGC" class="tv-img">
-      <div class="tv-overlay">
-        <span class="tv-handle">@mia_beauty</span>
-        <p class="tv-quote">"Bought 3 pairs. Never going back to plain underwear!"</p>
-      </div>
-    </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -158,9 +151,64 @@
       "default": "50,000+ WOMEN CAN'T BE WRONG"
     }
   ],
+  "blocks": [
+    {
+      "type": "video_card",
+      "name": "TikTok Video Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Video Card Image"
+        },
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "TikTok / Creator Handle",
+          "default": "@sophia_fits"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Customer Review Quote",
+          "default": "Literally snatched my waist in seconds! 😱 Best shapewear ever."
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "ConvertStudio: TikTok UGC Video Carousel"
+      "name": "ConvertStudio: TikTok UGC Video Carousel",
+      "blocks": [
+        {
+          "type": "video_card",
+          "settings": {
+            "handle": "@sophia_fits",
+            "quote": "Literally snatched my waist in seconds! 😱 Best shapewear ever."
+          }
+        },
+        {
+          "type": "video_card",
+          "settings": {
+            "handle": "@emma_glam",
+            "quote": "Fits under my tightest dress with ZERO lines visible! 🔥"
+          }
+        },
+        {
+          "type": "video_card",
+          "settings": {
+            "handle": "@chloe_style",
+            "quote": "Doesn't roll down at all! I wore it for 12 hrs comfortably."
+          }
+        },
+        {
+          "type": "video_card",
+          "settings": {
+            "handle": "@mia_beauty",
+            "quote": "Bought 3 pairs. Never going back to plain underwear!"
+          }
+        }
+      ]
     }
   ]
 }
