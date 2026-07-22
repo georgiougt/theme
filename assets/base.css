@@ -8,6 +8,34 @@
   font-display: swap;
 }
 
+/* Global Product Card Image Scaling & Grid Alignment */
+.product-card,
+.shapewear-card,
+.card-gallery,
+.product-card__image {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card__image img,
+.card-gallery img,
+.shapewear-card__media img,
+.product-card img,
+.product-card-gallery img {
+  width: 100% !important;
+  aspect-ratio: 3 / 4 !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border-radius: var(--card-corner-radius, 8px);
+}
+
+.product-grid,
+.shapewear-demo-catalog__grid {
+  display: grid;
+  align-items: stretch;
+}
+
 * {
   box-sizing: border-box;
 }

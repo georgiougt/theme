@@ -327,7 +327,13 @@
   {{ media_slot_2 }}
 
   {% if media_count == 0 %}
-    {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero__media' }}
+    <img
+      src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1920"
+      alt="ConvertStudio Shapewear Collection"
+      class="hero__media"
+      style="object-fit: cover; object-position: center 20%; width: 100%; height: 100%;"
+      loading="eager"
+    >
   {%- endif -%}
 {% endcapture %}
 
