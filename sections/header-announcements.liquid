@@ -11,34 +11,61 @@
 {% render 'contrast-override', background_color: section.settings.background_color, section_id: section.id %}
 
 <div class="section-background color-custom-{{ section.id }}"></div>
-<aside
-  class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-custom-{{ section.id }}"
-  style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px;{% if section.settings.divider_color != blank %} --color-border: {{ section.settings.divider_color }};{% endif %}"
->
-  {% liquid
-    assign autoplay = false
-    assign show_arrows = false
-    if section.blocks.size > 1
-      assign autoplay = true
-      assign show_arrows = true
-    endif
-  %}
 
-  <announcement-bar-component
-    class="announcement-bar__slider"
-    {% if autoplay == true %}
-      autoplay="{{ section.settings.speed }}" aria-live="polite"
-    {% endif %}
+{%- if section.settings.enable_marquee -%}
+  <div
+    class="announcement-marquee spacing-style section section--full-width color-custom-{{ section.id }}"
+    style="{% render 'spacing-padding', settings: section.settings %}; --marquee-speed: {{ section.settings.marquee_speed | default: 20 }}s; --border-bottom-width: {{ section.settings.divider_width }}px;{% if section.settings.divider_color != blank %} --color-border: {{ section.settings.divider_color }};{% endif %}"
   >
-    {% if show_arrows %}
-      {% render 'slideshow-arrows', icon_style: 'chevron' %}
-    {% endif %}
-
-    <div class="announcement-bar__slides">
-      {% content_for 'blocks' %}
+    <div class="announcement-marquee__track">
+      <div class="announcement-marquee__content">
+        <span class="announcement-marquee__item">🚚 {{ section.settings.marquee_text | default: "FREE SHIPPING WORLDWIDE ON ALL ORDERS OVER $50" }}</span>
+        <span class="announcement-marquee__dot">•</span>
+        <span class="announcement-marquee__item">⚡ 30-DAY EASY RETURNS & MONEY-BACK GUARANTEE</span>
+        <span class="announcement-marquee__dot">•</span>
+        <span class="announcement-marquee__item">🚀 EXPRESS 2-DAY WORLDWIDE DELIVERY</span>
+        <span class="announcement-marquee__dot">•</span>
+      </div>
+      <div class="announcement-marquee__content" aria-hidden="true">
+        <span class="announcement-marquee__item">🚚 {{ section.settings.marquee_text | default: "FREE SHIPPING WORLDWIDE ON ALL ORDERS OVER $50" }}</span>
+        <span class="announcement-marquee__dot">•</span>
+        <span class="announcement-marquee__item">⚡ 30-DAY EASY RETURNS & MONEY-BACK GUARANTEE</span>
+        <span class="announcement-marquee__dot">•</span>
+        <span class="announcement-marquee__item">🚀 EXPRESS 2-DAY WORLDWIDE DELIVERY</span>
+        <span class="announcement-marquee__dot">•</span>
+      </div>
     </div>
-  </announcement-bar-component>
-</aside>
+  </div>
+{%- else -%}
+  <aside
+    class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-custom-{{ section.id }}"
+    style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px;{% if section.settings.divider_color != blank %} --color-border: {{ section.settings.divider_color }};{% endif %}"
+  >
+    {% liquid
+      assign autoplay = false
+      assign show_arrows = false
+      if section.blocks.size > 1
+        assign autoplay = true
+        assign show_arrows = true
+      endif
+    %}
+
+    <announcement-bar-component
+      class="announcement-bar__slider"
+      {% if autoplay == true %}
+        autoplay="{{ section.settings.speed }}" aria-live="polite"
+      {% endif %}
+    >
+      {% if show_arrows %}
+        {% render 'slideshow-arrows', icon_style: 'chevron' %}
+      {% endif %}
+
+      <div class="announcement-bar__slides">
+        {% content_for 'blocks' %}
+      </div>
+    </announcement-bar-component>
+  </aside>
+{%- endif -%}
 
 {% stylesheet %}
   .announcement-bar {
@@ -123,6 +150,53 @@
     position: absolute;
     inset: 0;
   }
+
+  .announcement-marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-block-end: var(--border-bottom-width) solid var(--color-border);
+  }
+
+  .announcement-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-infinite var(--marquee-speed, 20s) linear infinite;
+  }
+
+  .announcement-marquee__track:hover {
+    animation-play-state: paused;
+  }
+
+  .announcement-marquee__content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-inline-end: 2rem;
+  }
+
+  .announcement-marquee__item {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .announcement-marquee__dot {
+    opacity: 0.6;
+    font-weight: bold;
+  }
+
+  @keyframes marquee-infinite {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -137,6 +211,28 @@
     "groups": ["header"]
   },
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_marquee",
+      "label": "Enable Continuous Scrolling Marquee",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "marquee_text",
+      "label": "Marquee Announcement Text",
+      "default": "FREE SHIPPING WORLDWIDE ON ALL ORDERS OVER $50"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "Marquee Scroll Duration (Seconds)",
+      "min": 5,
+      "max": 40,
+      "step": 1,
+      "unit": "s",
+      "default": 20
+    },
     {
       "type": "range",
       "id": "speed",
