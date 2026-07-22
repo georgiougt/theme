@@ -44,6 +44,32 @@
   width: 100% !important;
 }
 
+/* Transparent Overlay Header (Navbar + Announcement Bar) on Hero Image */
+#header-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent !important;
+}
+
+#header-group header,
+#header-group .announcement-bar,
+#header-group .announcement-marquee,
+#header-group .header-section {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #ffffff;
+}
+
+#header-group a,
+#header-group span,
+#header-group svg,
+#header-group .announcement-marquee__item {
+  color: #ffffff !important;
+}
+
 * {
   box-sizing: border-box;
 }
