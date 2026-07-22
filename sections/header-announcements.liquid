@@ -8,9 +8,12 @@
   ></script>
 {% endif %}
 
-{% render 'contrast-override', background_color: section.settings.background_color, section_id: section.id %}
+{%- assign show_marquee = true -%}
+{%- if section.settings.enable_marquee == false -%}
+  {%- assign show_marquee = false -%}
+{%- endif -%}
 
-{%- if section.settings.enable_marquee -%}
+{%- if show_marquee -%}
   <div
     class="announcement-marquee spacing-style section section--full-width color-custom-{{ section.id }}"
     style="{% render 'spacing-padding', settings: section.settings %}; --marquee-speed: {{ section.settings.marquee_speed | default: 20 }}s; --border-bottom-width: {{ section.settings.divider_width }}px;{% if section.settings.divider_color != blank %} --color-border: {{ section.settings.divider_color }};{% endif %}"
