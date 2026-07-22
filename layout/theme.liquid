@@ -60,6 +60,27 @@
       </div>
 
       <script>
+        (function initHeaderScrollState() {
+          const updateScroll = () => {
+            const headerGroup = document.querySelector('#header-group');
+            if (!headerGroup) return;
+            const pageWrapper = document.querySelector('.page-wrapper');
+            const scrollTop = window.scrollY || document.documentElement.scrollTop || (pageWrapper ? pageWrapper.scrollTop : 0);
+            if (scrollTop > 80) {
+              headerGroup.classList.add('is-scrolled');
+            } else {
+              headerGroup.classList.remove('is-scrolled');
+            }
+          };
+
+          window.addEventListener('scroll', updateScroll, { passive: true });
+          document.addEventListener('DOMContentLoaded', () => {
+            const pageWrapper = document.querySelector('.page-wrapper');
+            if (pageWrapper) pageWrapper.addEventListener('scroll', updateScroll, { passive: true });
+            updateScroll();
+          });
+        })();
+
         // Inline header height and menu style calculations to prevent layout shift
         // Note: Updates in calculateHeaderGroupHeight(), updateTransparentHeaderOffset() and setHeaderMenuStyle() utilities.js should be kept in sync with this function
         (function setHeaderHeighCustomProperties() {

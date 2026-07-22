@@ -44,26 +44,45 @@
   width: 100% !important;
 }
 
-/* Transparent Overlay Header (Navbar + Announcement Bar) on Hero Image */
+/* Header Overlay at Top of Page vs Scrolled Solid Navbar */
 #header-group {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  background: transparent !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #header-group .section-background {
   display: none !important;
 }
 
-#header-group header,
-#header-group .announcement-bar,
-#header-group .header-section {
+/* Natural Position at Top (over Hero image) */
+#header-group:not(.is-scrolled) header,
+#header-group:not(.is-scrolled) .announcement-bar,
+#header-group:not(.is-scrolled) .header-section {
   background: transparent !important;
   background-color: transparent !important;
   color: #ffffff;
+}
+
+/* Scrolled Down Past Hero (Solid Navy/Dark Navbar so text never blends) */
+#header-group.is-scrolled,
+#header-group:has(header-component[data-sticky-state='active']) {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #0f172a !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+#header-group.is-scrolled header,
+#header-group.is-scrolled .header-section,
+#header-group.is-scrolled .announcement-bar {
+  background-color: #0f172a !important;
+  background: #0f172a !important;
 }
 
 #header-group a,
