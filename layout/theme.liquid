@@ -63,16 +63,20 @@
         (function initHeaderScrollState() {
           const updateScroll = () => {
             const headerGroup = document.querySelector('#header-group');
+            const headerComp = document.querySelector('header-component');
             if (!headerGroup) return;
             const pageWrapper = document.querySelector('.page-wrapper');
             const winScroll = window.scrollY || document.documentElement.scrollTop || 0;
             const wrapperScroll = pageWrapper ? pageWrapper.scrollTop : 0;
             const scrollTop = Math.max(winScroll, wrapperScroll);
 
-            if (scrollTop > 60) {
+            if (scrollTop > 40) {
               headerGroup.classList.add('is-scrolled');
             } else {
               headerGroup.classList.remove('is-scrolled');
+              if (headerComp) {
+                headerComp.dataset.stickyState = 'inactive';
+              }
             }
           };
 
