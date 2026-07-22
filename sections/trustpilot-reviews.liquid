@@ -160,10 +160,14 @@
 
 {% schema %}
 {
-  "name": "ConvertStudio: Trustpilot Social Proof Reviews Grid",
+  "name": "ConvertStudio: Trustpilot Reviews Grid",
   "tag": "section",
   "class": "section-trustpilot-reviews",
   "settings": [
+    {
+      "type": "header",
+      "content": "Section Header Settings"
+    },
     {
       "type": "text",
       "id": "header_logo_text",
@@ -195,15 +199,6 @@
       "name": "Customer Review Card",
       "settings": [
         {
-          "type": "range",
-          "id": "rating",
-          "label": "Star Rating (1-5)",
-          "min": 1,
-          "max": 5,
-          "step": 1,
-          "default": 5
-        },
-        {
           "type": "text",
           "id": "title",
           "label": "Review Headline",
@@ -232,7 +227,7 @@
   ],
   "presets": [
     {
-      "name": "ConvertStudio: Trustpilot Social Proof Reviews Grid",
+      "name": "ConvertStudio: Trustpilot Reviews Grid",
       "blocks": [
         {
           "type": "review",
@@ -240,7 +235,6 @@
             "title": "Invisible under my wedding dress!",
             "quote": "I was terrified of shapewear lines showing on my big day. ConvertStudio smoothed my belly completely and felt like second skin all night long!",
             "author": "Jessica M.",
-            "rating": 5,
             "verified": true
           }
         },
@@ -250,7 +244,6 @@
             "title": "Zero rolling down!",
             "quote": "Every other shapewear I bought rolled down after 10 minutes. The silicone bands on this pair actually WORK. Ordering 2 more pairs right now!",
             "author": "Amanda K.",
-            "rating": 5,
             "verified": true
           }
         },
@@ -260,7 +253,6 @@
             "title": "Confidence boosted 100%",
             "quote": "Dropped 2 dress sizes instantly. My husband noticed immediately and I feel incredible wearing my favorite bodycon dresses again.",
             "author": "Rachel T.",
-            "rating": 5,
             "verified": true
           }
         }
