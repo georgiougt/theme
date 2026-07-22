@@ -65,8 +65,11 @@
             const headerGroup = document.querySelector('#header-group');
             if (!headerGroup) return;
             const pageWrapper = document.querySelector('.page-wrapper');
-            const scrollTop = window.scrollY || document.documentElement.scrollTop || (pageWrapper ? pageWrapper.scrollTop : 0);
-            if (scrollTop > 80) {
+            const winScroll = window.scrollY || document.documentElement.scrollTop || 0;
+            const wrapperScroll = pageWrapper ? pageWrapper.scrollTop : 0;
+            const scrollTop = Math.max(winScroll, wrapperScroll);
+
+            if (scrollTop > 60) {
               headerGroup.classList.add('is-scrolled');
             } else {
               headerGroup.classList.remove('is-scrolled');
@@ -74,11 +77,21 @@
           };
 
           window.addEventListener('scroll', updateScroll, { passive: true });
-          document.addEventListener('DOMContentLoaded', () => {
+          document.addEventListener('scroll', updateScroll, { passive: true });
+
+          const bindWrapper = () => {
             const pageWrapper = document.querySelector('.page-wrapper');
-            if (pageWrapper) pageWrapper.addEventListener('scroll', updateScroll, { passive: true });
-            updateScroll();
-          });
+            if (pageWrapper) {
+              pageWrapper.addEventListener('scroll', updateScroll, { passive: true });
+            }
+          };
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bindWrapper);
+          } else {
+            bindWrapper();
+          }
+          updateScroll();
         })();
 
         // Inline header height and menu style calculations to prevent layout shift

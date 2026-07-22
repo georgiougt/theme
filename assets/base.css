@@ -51,45 +51,67 @@
   left: 0;
   right: 0;
   z-index: 100;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 #header-group .section-background {
   display: none !important;
 }
 
-/* Natural Position at Top (over Hero image) */
-#header-group:not(.is-scrolled) header,
-#header-group:not(.is-scrolled) .announcement-bar,
-#header-group:not(.is-scrolled) .header-section {
+/* 1. At Top of Page (Transparent Over Hero Image) */
+#header-group:not(.is-scrolled):not(:has(header-component[data-sticky-state='active'])) {
+  position: absolute !important;
   background: transparent !important;
   background-color: transparent !important;
-  color: #ffffff;
 }
 
-/* Scrolled Down Past Hero (Solid Navy/Dark Navbar so text never blends) */
+#header-group:not(.is-scrolled):not(:has(header-component[data-sticky-state='active'])) header,
+#header-group:not(.is-scrolled):not(:has(header-component[data-sticky-state='active'])) .header-section {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+#header-group:not(.is-scrolled) .announcement-marquee {
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* 2. When Scrolled Down Past Hero (Solid Navy #0f172a Sticky Navbar) */
 #header-group.is-scrolled,
-#header-group:has(header-component[data-sticky-state='active']) {
+#header-group:has(header-component[data-sticky-state='active']),
+header-component[data-sticky-state='active'] {
   position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 999 !important;
   background-color: #0f172a !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+  background: #0f172a !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3) !important;
 }
 
 #header-group.is-scrolled header,
 #header-group.is-scrolled .header-section,
-#header-group.is-scrolled .announcement-bar {
+#header-group.is-scrolled .announcement-bar,
+#header-group.is-scrolled .announcement-marquee,
+#header-group.is-scrolled .header__underlay-closed,
+header-component[data-sticky-state='active'] .header__underlay-closed,
+header-component[data-sticky-state='active'] header,
+header-component[data-sticky-state='active'] .header-section,
+header-component[data-sticky-state='active'] .announcement-marquee {
   background-color: #0f172a !important;
   background: #0f172a !important;
 }
 
+/* White contrast typography for all header elements */
 #header-group a,
 #header-group span,
 #header-group svg,
 #header-group .announcement-marquee__item,
-#header-group .announcement-bar__text {
+#header-group .announcement-bar__text,
+#header-group .header-actions__action {
   color: #ffffff !important;
   fill: #ffffff !important;
 }
