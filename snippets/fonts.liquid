@@ -1,3 +1,30 @@
+{% style %}
+  @font-face {
+    font-family: 'Hunter';
+    src: url("{{ 'hunter-webfont.woff2' | asset_url }}") format('woff2'),
+         url("{{ 'hunter-webfont.woff' | asset_url }}") format('woff'),
+         url("{{ 'Hunter.otf' | asset_url }}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --font-heading--family: 'Hunter', sans-serif;
+    --font-subheading--family: 'Hunter', sans-serif;
+    --font-accent--family: 'Hunter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6,
+  .sticky-atc__title,
+  .announcement-marquee__item,
+  .cart-drawer-upsells__title,
+  .theme-drawer__title {
+    font-family: 'Hunter', sans-serif !important;
+  }
+{% endstyle %}
+
 {%- unless settings.type_body_font.system? -%}
   {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', fetchpriority: 'low' }}
 {%- endunless -%}
