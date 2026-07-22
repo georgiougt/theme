@@ -322,7 +322,49 @@
     },
     "trustpilot_social_proof": {
       "type": "trustpilot-reviews",
-      "settings": {}
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Invisible under my wedding dress!",
+            "quote": "I was terrified of shapewear lines showing on my big day. ConvertStudio smoothed my belly completely and felt like second skin all night long!",
+            "author": "Jessica M.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Zero rolling down!",
+            "quote": "Every other shapewear I bought rolled down after 10 minutes. The silicone bands on this pair actually WORK. Ordering 2 more pairs right now!",
+            "author": "Amanda K.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Confidence boosted 100%",
+            "quote": "Dropped 2 dress sizes instantly. My husband noticed immediately and I feel incredible wearing my favorite bodycon dresses again.",
+            "author": "Rachel T.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "header_logo_text": "★ Trustpilot",
+        "rating_score": "4.9 / 5.0",
+        "total_reviews_text": "2,480+ Reviews",
+        "star_color": "#00b67a"
+      }
     }
   },
   "order": [
