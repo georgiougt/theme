@@ -54,9 +54,12 @@
   background: transparent !important;
 }
 
+#header-group .section-background {
+  display: none !important;
+}
+
 #header-group header,
 #header-group .announcement-bar,
-#header-group .announcement-marquee,
 #header-group .header-section {
   background: transparent !important;
   background-color: transparent !important;
@@ -66,8 +69,10 @@
 #header-group a,
 #header-group span,
 #header-group svg,
-#header-group .announcement-marquee__item {
+#header-group .announcement-marquee__item,
+#header-group .announcement-bar__text {
   color: #ffffff !important;
+  fill: #ffffff !important;
 }
 
 * {

@@ -10,8 +10,6 @@
 
 {% render 'contrast-override', background_color: section.settings.background_color, section_id: section.id %}
 
-<div class="section-background color-custom-{{ section.id }}"></div>
-
 {%- if section.settings.enable_marquee -%}
   <div
     class="announcement-marquee spacing-style section section--full-width color-custom-{{ section.id }}"
@@ -157,7 +155,13 @@
     width: 100%;
     display: flex;
     align-items: center;
-    border-block-end: var(--border-bottom-width) solid var(--color-border);
+    background: rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-block-end: 1px solid rgba(255, 255, 255, 0.15);
+    padding-block: 0.5rem;
+    position: relative;
+    z-index: 10;
   }
 
   .announcement-marquee__track {
@@ -173,19 +177,22 @@
   .announcement-marquee__content {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    padding-inline-end: 2rem;
+    gap: 2.5rem;
+    padding-inline-end: 2.5rem;
   }
 
   .announcement-marquee__item {
+    font-family: 'Hunter', sans-serif;
     font-size: 0.8125rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    color: #ffffff !important;
   }
 
   .announcement-marquee__dot {
-    opacity: 0.6;
+    color: #ffffff !important;
+    opacity: 0.8;
     font-weight: bold;
   }
 
