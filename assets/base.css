@@ -36,6 +36,14 @@
   align-items: stretch;
 }
 
+/* Full Screen Hero Section */
+.hero-wrapper .hero,
+.hero {
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+  width: 100% !important;
+}
+
 * {
   box-sizing: border-box;
 }
