@@ -1,0 +1,269 @@
+{% comment %}
+  Renders Sticky "Add to Cart" Bar on Product Detail Pages
+  Usage: {% render 'sticky-add-to-cart', product: product %}
+{% endcomment %}
+
+{%- if template.name == 'product' and settings.sticky_atc_enable -%}
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+  <script src="{{ 'sticky-add-to-cart.js' | asset_url }}" defer="defer"></script>
+
+  <sticky-add-to-cart
+    class="sticky-atc{% unless settings.sticky_atc_enable_mobile %} sticky-atc--desktop-only{% endunless %}"
+    data-variant-id="{{ current_variant.id }}"
+  >
+    <div class="sticky-atc__container">
+      <div class="sticky-atc__product-info">
+        {%- if product.featured_media -%}
+          <div class="sticky-atc__media">
+            <img
+              src="{{ product.featured_media | image_url: width: 100 }}"
+              alt="{{ product.title | escape }}"
+              width="50"
+              height="50"
+              loading="lazy"
+            >
+          </div>
+        {%- endif -%}
+
+        <div class="sticky-atc__details">
+          <span class="sticky-atc__title">{{ product.title }}</span>
+          <div class="sticky-atc__price" data-sticky-price>
+            <span class="sticky-atc__price-current">{{ current_variant.price | money }}</span>
+            {%- if current_variant.compare_at_price > current_variant.price -%}
+              <span class="sticky-atc__price-compare">{{ current_variant.compare_at_price | money }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      <div class="sticky-atc__form">
+        {%- if product.has_only_default_variant == false and settings.sticky_atc_show_variants -%}
+          <div class="sticky-atc__variant-wrapper">
+            <select class="sticky-atc__variant-select" data-sticky-variant-select aria-label="Select variant">
+              {%- for variant in product.variants -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant == current_variant %}
+                    selected="selected"
+                  {% endif %}
+                  {% unless variant.available %}
+                    disabled="disabled"
+                  {% endunless %}
+                  data-price="{{ variant.price | money }}"
+                  data-compare-price="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
+                >
+                  {{ variant.title }} - {% if variant.available %}{{ variant.price | money }}{% else %}Sold Out{% endif %}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+
+        {%- if settings.sticky_atc_show_quantity -%}
+          <div class="sticky-atc__quantity">
+            <button type="button" class="sticky-atc__qty-btn" data-sticky-qty-minus aria-label="Decrease quantity">-</button>
+            <input
+              type="number"
+              class="sticky-atc__qty-input"
+              data-sticky-quantity-input
+              value="1"
+              min="1"
+              aria-label="Quantity"
+            >
+            <button type="button" class="sticky-atc__qty-btn" data-sticky-qty-plus aria-label="Increase quantity">+</button>
+          </div>
+        {%- endif -%}
+
+        <button
+          type="button"
+          class="sticky-atc__button"
+          data-sticky-submit-btn
+          {% unless current_variant.available %}
+            disabled="disabled"
+          {% endunless %}
+        >
+          <span>
+            {%- if current_variant.available -%}
+              Add to Cart
+            {%- else -%}
+              Sold Out
+            {%- endif -%}
+          </span>
+        </button>
+      </div>
+    </div>
+  </sticky-add-to-cart>
+
+  <style>
+    sticky-add-to-cart {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0.75rem 1rem;
+    }
+
+    sticky-add-to-cart.is-visible {
+      transform: translateY(0);
+    }
+
+    @media screen and (max-width: 749px) {
+      sticky-add-to-cart.sticky-atc--desktop-only {
+        display: none !important;
+      }
+    }
+
+    .sticky-atc__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .sticky-atc__product-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .sticky-atc__media img {
+      border-radius: 6px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .sticky-atc__details {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .sticky-atc__title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #0f172a;
+    }
+
+    .sticky-atc__price {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8125rem;
+    }
+
+    .sticky-atc__price-current {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .sticky-atc__price-compare {
+      text-decoration: line-through;
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+
+    .sticky-atc__form {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .sticky-atc__variant-select {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8125rem;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      color: #0f172a;
+      cursor: pointer;
+    }
+
+    .sticky-atc__quantity {
+      display: flex;
+      align-items: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .sticky-atc__qty-btn {
+      width: 32px;
+      height: 34px;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      cursor: pointer;
+      color: #0f172a;
+    }
+
+    .sticky-atc__qty-input {
+      width: 36px;
+      height: 34px;
+      border: none;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+
+    .sticky-atc__qty-input::-webkit-outer-spin-button,
+    .sticky-atc__qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .sticky-atc__button {
+      padding: 0.65rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: #0f172a;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .sticky-atc__button:hover:not(:disabled) {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    .sticky-atc__button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media screen and (max-width: 640px) {
+      .sticky-atc__product-info {
+        display: none;
+      }
+      .sticky-atc__form {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .sticky-atc__button {
+        flex: 1;
+      }
+    }
+  </style>
+{%- endif -%}

@@ -1,0 +1,173 @@
+{% comment %}
+  Renders in-drawer product upsell / recommendation cards
+  Usage: {% render 'cart-upsells' %}
+{% endcomment %}
+
+<div class="cart-drawer-upsells">
+  <div class="cart-drawer-upsells__header">
+    <span class="cart-drawer-upsells__title">Pairs Perfectly With:</span>
+  </div>
+
+  <div class="cart-drawer-upsells__items">
+    {%- assign upsell_collection = collections['all'] -%}
+    {%- assign count = 0 -%}
+    {%- for product in upsell_collection.products -%}
+      {%- unless cart.items | map: 'product' contains product -%}
+        {%- if product.available and count < 2 -%}
+          {%- assign count = count | plus: 1 -%}
+          {%- assign first_variant = product.selected_or_first_available_variant -%}
+          <div class="cart-drawer-upsells__card">
+            <div class="cart-drawer-upsells__media">
+              {%- if product.featured_media -%}
+                <img
+                  src="{{ product.featured_media | image_url: width: 120 }}"
+                  alt="{{ product.title | escape }}"
+                  loading="lazy"
+                  width="60"
+                  height="60"
+                >
+              {%- endif -%}
+            </div>
+            <div class="cart-drawer-upsells__info">
+              <span class="cart-drawer-upsells__product-title">{{ product.title }}</span>
+              <span class="cart-drawer-upsells__price">{{ first_variant.price | money }}</span>
+            </div>
+            <div class="cart-drawer-upsells__action">
+              <button
+                type="button"
+                class="cart-drawer-upsells__btn"
+                data-variant-id="{{ first_variant.id }}"
+                on:click="#cart-drawer-upsell-add"
+              >
+                + Add
+              </button>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .cart-drawer-upsells {
+    padding: 0.75rem 1.25rem;
+    background-color: var(--color-background, #ffffff);
+    border-top: 1px dashed rgb(var(--color-foreground-rgb, 0 0 0) / 0.15);
+    border-bottom: 1px dashed rgb(var(--color-foreground-rgb, 0 0 0) / 0.15);
+    margin-block: 0.5rem;
+  }
+
+  .cart-drawer-upsells__header {
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-drawer-upsells__title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-foreground, #334155);
+  }
+
+  .cart-drawer-upsells__items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cart-drawer-upsells__card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background-color: var(--color-background-secondary, #f8fafc);
+  }
+
+  .cart-drawer-upsells__media img {
+    border-radius: 4px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cart-drawer-upsells__info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cart-drawer-upsells__product-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cart-drawer-upsells__price {
+    font-size: 0.75rem;
+    color: var(--color-foreground, #64748b);
+  }
+
+  .cart-drawer-upsells__btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-button-text, #ffffff);
+    background-color: var(--color-button-background, #0f172a);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .cart-drawer-upsells__btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+</style>
+
+<script>
+  (function () {
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('.cart-drawer-upsells__btn');
+      if (!btn) return;
+
+      const variantId = btn.dataset.variantId;
+      if (!variantId) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Adding...';
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: 1 }] })
+      })
+        .then(response => response.json())
+        .then(data => {
+          btn.textContent = 'Added ✓';
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = '+ Add';
+          }, 1500);
+
+          // Dispatch standard cart update event
+          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: data } }));
+          
+          // Trigger section rendering API or refresh cart drawer if available
+          if (typeof Shopify !== 'undefined' && Shopify.onCartUpdate) {
+            Shopify.onCartUpdate();
+          }
+          window.location.reload();
+        })
+        .catch(err => {
+          console.error('Upsell add error:', err);
+          btn.disabled = false;
+          btn.textContent = '+ Add';
+        });
+    });
+  })();
+</script>
