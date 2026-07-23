@@ -324,7 +324,7 @@
       "type": "trustpilot-reviews",
       "blocks": {
         "review_1": {
-          "type": "review",
+          "type": "trustpilot_card",
           "settings": {
             "rating": 5,
             "title": "Invisible under my wedding dress!",
@@ -334,7 +334,7 @@
           }
         },
         "review_2": {
-          "type": "review",
+          "type": "trustpilot_card",
           "settings": {
             "rating": 5,
             "title": "Zero rolling down!",
@@ -344,7 +344,7 @@
           }
         },
         "review_3": {
-          "type": "review",
+          "type": "trustpilot_card",
           "settings": {
             "rating": 5,
             "title": "Confidence boosted 100%",
