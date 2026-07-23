@@ -1,19 +1,53 @@
 {% comment %}
-  Three.js 3D Visual Effects Hero Section
+  Gaia 3D Visual Effects Hero Section
+  ConvertStudio Theme
 {% endcomment %}
 
 <script src="{{ 'three-hero.js' | asset_url }}" defer="defer"></script>
 
-<div class="three-hero-section color-custom-{{ section.id }}">
-  <three-hero-canvas class="three-hero-canvas"></three-hero-canvas>
+<div class="three-hero-section color-custom-{{ section.id }}" style="
+  min-height: {{ section.settings.section_height | default: '85vh' }};
+  background: linear-gradient(135deg, {{ section.settings.bg_gradient_start | default: '#0f172a' }} 0%, {{ section.settings.bg_gradient_end | default: '#1e1b4b' }} 100%);
+">
+  <three-hero-canvas
+    class="three-hero-canvas"
+    data-animation="{{ section.settings.animation_type | default: 'wave_field' }}"
+    data-primary-color="{{ section.settings.primary_color | default: '#38bdf8' }}"
+    data-accent-color="{{ section.settings.accent_color | default: '#818cf8' }}"
+    data-wireframe="{{ section.settings.wireframe_mode }}"
+    data-speed="{{ section.settings.animation_speed | default: 5 }}"
+    data-rotation="{{ section.settings.rotation_speed | default: 5 }}"
+    data-parallax="{{ section.settings.enable_parallax }}"
+  ></three-hero-canvas>
 
   <div class="three-hero-content page-width">
-    <span class="three-hero-tagline">{{ section.settings.subheading | default: "INTERACTIVE 3D EXPERIENCE" }}</span>
-    <h1 class="three-hero-title">{{ section.settings.heading | default: "NEXT-GEN 3D BODY SCULPTING" }}</h1>
-    <p class="three-hero-description">{{ section.settings.text | default: "Experience 360° targeted waist compression & seamless contouring with medical-grade precision." }}</p>
+    {%- if section.settings.subheading != blank -%}
+      <span class="three-hero-tagline" style="color: {{ section.settings.tagline_color | default: '#38bdf8' }};">
+        {{- section.settings.subheading -}}
+      </span>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h1 class="three-hero-title" style="color: {{ section.settings.heading_color | default: '#ffffff' }};">
+        {{- section.settings.heading -}}
+      </h1>
+    {%- endif -%}
+
+    {%- if section.settings.text != blank -%}
+      <p class="three-hero-description" style="color: {{ section.settings.text_color | default: '#cbd5e1' }};">
+        {{- section.settings.text -}}
+      </p>
+    {%- endif -%}
 
     {%- if section.settings.button_label != blank -%}
-      <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="three-hero-button">
+      <a
+        href="{{ section.settings.button_link | default: '/collections/all' }}"
+        class="three-hero-button"
+        style="
+          background: {{ section.settings.button_bg | default: '#ffffff' }};
+          color: {{ section.settings.button_text | default: '#0f172a' }};
+        "
+      >
         {{ section.settings.button_label }}
       </a>
     {%- endif -%}
@@ -24,13 +58,10 @@
   .three-hero-section {
     position: relative;
     width: 100%;
-    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-    color: #ffffff;
   }
 
   .three-hero-canvas {
@@ -66,7 +97,6 @@
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #38bdf8;
     margin-bottom: 0.75rem;
     display: inline-block;
   }
@@ -77,13 +107,11 @@
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 1rem;
-    color: #ffffff;
   }
 
   .three-hero-description {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #cbd5e1;
     margin-bottom: 2rem;
   }
 
@@ -94,19 +122,16 @@
     font-size: 0.9375rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: #0f172a;
-    background: #ffffff;
     border-radius: 50px;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   }
 
   .three-hero-button:hover {
     transform: translateY(-2px);
-    background: #38bdf8;
-    color: #ffffff;
-    box-shadow: 0 14px 30px rgba(56, 189, 248, 0.5);
+    opacity: 0.9;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
   }
 </style>
 
@@ -117,10 +142,100 @@
   "class": "section-3d-hero",
   "settings": [
     {
+      "type": "header",
+      "content": "3D Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "3D Animation Preset",
+      "options": [
+        { "value": "wave_field", "label": "1. Dynamic Wave Field" },
+        { "value": "torus_knot", "label": "2. Sculpted Torus Knot" },
+        { "value": "icosahedron", "label": "3. Floating Crystal Mesh" },
+        { "value": "galaxy_orbs", "label": "4. Cosmic Galaxy Orbs" },
+        { "value": "dna_helix", "label": "5. DNA Double Helix" },
+        { "value": "cyber_ring", "label": "6. Pulsing Cyber Rings" },
+        { "value": "hyper_sphere", "label": "7. Deforming Hyper-Sphere" },
+        { "value": "particle_tunnel", "label": "8. Warp Speed Tunnel" },
+        { "value": "cube_matrix", "label": "9. Wireframe Cube Matrix" },
+        { "value": "diamond_grid", "label": "10. Diamond Lattice Grid" }
+      ],
+      "default": "wave_field"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation Movement Speed",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "rotation_speed",
+      "label": "3D Object Rotation Speed",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "wireframe_mode",
+      "label": "Enable Wireframe / Glow Mesh",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable Interactive Mouse Parallax",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Color Customization"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "3D Object Main Color",
+      "default": "#38bdf8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "3D Accent / Glow Color",
+      "default": "#818cf8"
+    },
+    {
+      "type": "color",
+      "id": "bg_gradient_start",
+      "label": "Background Gradient Start",
+      "default": "#0f172a"
+    },
+    {
+      "type": "color",
+      "id": "bg_gradient_end",
+      "label": "Background Gradient End",
+      "default": "#1e1b4b"
+    },
+    {
+      "type": "header",
+      "content": "Content & Typography"
+    },
+    {
       "type": "text",
       "id": "subheading",
-      "label": "Tagline",
+      "label": "Subheading / Tagline",
       "default": "INTERACTIVE 3D EXPERIENCE"
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Tagline Color",
+      "default": "#38bdf8"
     },
     {
       "type": "text",
@@ -129,10 +244,22 @@
       "default": "NEXT-GEN 3D BODY SCULPTING"
     },
     {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
       "type": "textarea",
       "id": "text",
-      "label": "Description",
+      "label": "Description Text",
       "default": "Experience 360° targeted waist compression & seamless contouring with medical-grade precision."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description Text Color",
+      "default": "#cbd5e1"
     },
     {
       "type": "text",
@@ -144,6 +271,30 @@
       "type": "url",
       "id": "button_link",
       "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button Text Color",
+      "default": "#0f172a"
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section Height",
+      "options": [
+        { "value": "60vh", "label": "Compact (60vh)" },
+        { "value": "75vh", "label": "Medium (75vh)" },
+        { "value": "85vh", "label": "Tall (85vh)" },
+        { "value": "100vh", "label": "Full Screen (100vh)" }
+      ],
+      "default": "85vh"
     }
   ],
   "presets": [
