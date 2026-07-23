@@ -15,7 +15,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h1>SHED INCHES INSTANTLY.<br>SCULPT YOUR CURVES.</h1><p style='font-size:1.1rem;margin-top:0.5rem;'>Premium 360° Waist Contouring & Invisible All-Day Support.</p>",
+            "text": "<h1>SHED INCHES INSTANTLY.<br>SCULPT YOUR CURVES.</h1><p>Premium 360° Waist Contouring & Invisible All-Day Support.</p>",
             "text_color": "{{ settings.color_palette.background }}",
             "width": "fit-content",
             "max_width": "normal",
