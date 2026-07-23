@@ -14,33 +14,43 @@
   <div class="si-banner">
     <img src="{{ section.settings.image | image_url: width: 1600 | default: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600' }}" alt="Shoppable Look" loading="lazy" class="si-banner-img">
 
-    <!-- Hotspot Pin 1 -->
-    <div class="si-pin" style="top: 35%; left: 45%;">
-      <button type="button" class="si-pin-btn" aria-label="View product">
-        <span class="si-pin-pulse"></span>
-        <span class="si-pin-icon">+</span>
-      </button>
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        <div class="si-pin" style="top: {{ block.settings.top_position }}%; left: {{ block.settings.left_position }}%;" {{ block.shopify_attributes }}>
+          <button type="button" class="si-pin-btn" aria-label="View product">
+            <span class="si-pin-pulse"></span>
+            <span class="si-pin-icon">+</span>
+          </button>
 
-      <div class="si-popover">
-        <div class="si-popover-title">Full Body Hourglass Shaper</div>
-        <div class="si-popover-price">$49.99 <span style="text-decoration:line-through;color:#94a3b8;font-size:0.75rem;">$89.99</span></div>
-        <a href="/collections/all" class="si-popover-btn">SHOP NOW</a>
+          <div class="si-popover">
+            <div class="si-popover-title">{{ block.settings.title }}</div>
+            <div class="si-popover-price">
+              {{ block.settings.price }}
+              {% if block.settings.compare_price != blank %}
+                <span style="text-decoration:line-through;color:#94a3b8;font-size:0.75rem;">{{ block.settings.compare_price }}</span>
+              {% endif %}
+            </div>
+            <a href="{{ block.settings.link | default: '/collections/all' }}" class="si-popover-btn">
+              {{ block.settings.button_label | default: 'SHOP NOW' }}
+            </a>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <!-- Default Pins -->
+      <div class="si-pin" style="top: 35%; left: 45%;">
+        <button type="button" class="si-pin-btn" aria-label="View product">
+          <span class="si-pin-pulse"></span>
+          <span class="si-pin-icon">+</span>
+        </button>
+
+        <div class="si-popover">
+          <div class="si-popover-title">Full Body Hourglass Shaper</div>
+          <div class="si-popover-price">$49.99 <span style="text-decoration:line-through;color:#94a3b8;font-size:0.75rem;">$89.99</span></div>
+          <a href="/collections/all" class="si-popover-btn">SHOP NOW</a>
+        </div>
       </div>
-    </div>
-
-    <!-- Hotspot Pin 2 -->
-    <div class="si-pin" style="top: 65%; left: 52%;">
-      <button type="button" class="si-pin-btn" aria-label="View product">
-        <span class="si-pin-pulse"></span>
-        <span class="si-pin-icon">+</span>
-      </button>
-
-      <div class="si-popover">
-        <div class="si-popover-title">High-Waist Tummy Control Shorts</div>
-        <div class="si-popover-price">$39.99 <span style="text-decoration:line-through;color:#94a3b8;font-size:0.75rem;">$69.99</span></div>
-        <a href="/collections/all" class="si-popover-btn">SHOP NOW</a>
-      </div>
-    </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -208,9 +218,86 @@
       "label": "Banner Image"
     }
   ],
+  "blocks": [
+    {
+      "type": "hotspot_pin",
+      "name": "Hotspot Pin",
+      "settings": [
+        {
+          "type": "range",
+          "id": "top_position",
+          "label": "Vertical Position Top (%)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 35
+        },
+        {
+          "type": "range",
+          "id": "left_position",
+          "label": "Horizontal Position Left (%)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 45
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title",
+          "default": "Full Body Hourglass Shaper"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$49.99"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare at Price",
+          "default": "$89.99"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Product / Collection Link"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "ConvertStudio: Shoppable Hotspot Banner"
+      "name": "ConvertStudio: Shoppable Hotspot Banner",
+      "blocks": [
+        {
+          "type": "hotspot_pin",
+          "settings": {
+            "top_position": 35,
+            "left_position": 45,
+            "title": "Full Body Hourglass Shaper",
+            "price": "$49.99",
+            "compare_price": "$89.99"
+          }
+        },
+        {
+          "type": "hotspot_pin",
+          "settings": {
+            "top_position": 65,
+            "left_position": 52,
+            "title": "High-Waist Tummy Control Shorts",
+            "price": "$39.99",
+            "compare_price": "$69.99"
+          }
+        }
+      ]
     }
   ]
 }
